@@ -1,0 +1,350 @@
+@charset "UTF-8";
+
+/* リセットとベーススタイル */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'メイリオ', Meiryo, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+  color: #333;
+}
+
+/* コンテナ */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* ヘッダー */
+.header {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.header p {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* メインコンテンツ */
+.main-content {
+  padding: 40px 30px;
+}
+
+/* 入力セクション */
+.input-section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1e3c72;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #667eea;
+}
+
+/* フォームグループ */
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+.form-label .required {
+  color: #e74c3c;
+  margin-left: 4px;
+}
+
+/* 入力フィールド */
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.form-input[type="number"]::-webkit-outer-spin-button,
+.form-input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+/* ボタン */
+.button-container {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.judge-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 16px 48px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.judge-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.judge-button:active {
+  transform: translateY(0);
+}
+
+/* 結果セクション */
+.result-section {
+  margin-top: 40px;
+  padding: 30px;
+  border-radius: 12px;
+  border: 3px solid #ddd;
+  background: #f8f9fa;
+}
+
+.result-section.show {
+  animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 結果のステータス別スタイル */
+.result-section.allowed {
+  background: #e8f5e9;
+  border-color: #4caf50;
+}
+
+.result-section.restricted {
+  background: #fff9e6;
+  border-color: #ffc107;
+}
+
+.result-section.prohibited {
+  background: #ffebee;
+  border-color: #f44336;
+}
+
+/* 結果タイトル */
+.result-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* 結果メッセージ */
+.result-message {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+.result-section.allowed .result-message {
+  color: #2e7d32;
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.result-section.restricted .result-message {
+  color: #f57c00;
+  background: rgba(255, 193, 7, 0.1);
+}
+
+.result-section.prohibited .result-message {
+  color: #c62828;
+  background: rgba(244, 67, 54, 0.1);
+}
+
+/* 結果の理由 */
+.result-reason {
+  margin-top: 16px;
+  padding: 16px;
+  background: white;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+}
+
+/* ステータスアイコン */
+.status-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.result-section.allowed .status-icon {
+  color: #4caf50;
+}
+
+.result-section.restricted .status-icon {
+  color: #ffc107;
+}
+
+.result-section.prohibited .status-icon {
+  color: #f44336;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+  
+  .container {
+    border-radius: 12px;
+  }
+  
+  .header {
+    padding: 20px;
+  }
+  
+  .header h1 {
+    font-size: 22px;
+  }
+  
+  .main-content {
+    padding: 24px 20px;
+  }
+  
+  .section-title {
+    font-size: 18px;
+  }
+  
+  .judge-button {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 16px;
+  }
+  
+  .result-message {
+    font-size: 18px;
+    padding: 16px;
+  }
+}
+
+/* ユーティリティクラス */
+.hidden {
+  display: none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-small {
+  margin-bottom: 12px;
+}
+
+.mb-medium {
+  margin-bottom: 24px;
+}
+
+.mb-large {
+  margin-bottom: 36px;
+}
+
+/* クルー別結果表示 */
+.crew-result {
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.crew-result.allowed {
+  background: #e8f5e9;
+  border-color: #4caf50 !important;
+  color: #2e7d32;
+}
+
+.crew-result.restricted {
+  background: #fff9e6;
+  border-color: #ffc107 !important;
+  color: #f57c00;
+}
+
+.crew-result.prohibited {
+  background: #ffebee;
+  border-color: #f44336 !important;
+  color: #c62828;
+}
+
+/* エラー表示 */
+.form-input.error,
+.form-select.error {
+  border-color: #f44336;
+  background-color: #ffebee;
+}
+
+.error-message {
+  display: block;
+  color: #f44336;
+  font-size: 13px;
+  margin-top: 6px;
+  font-weight: bold;
+}
