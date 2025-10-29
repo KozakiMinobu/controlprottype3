@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ボート競技 安全管理システム</title>    
+  <!-- オリジナルCSS -->
+  <link rel="stylesheet" href="rowing.css">
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <!-- ヘッダー -->
+      <div class="header">
+        <h1>出艇判断システム</h1>
+        <p>気象条件からクルーごとの乗艇可否を判定します</p>
+      </div>
+
+      <!-- メインコンテンツ -->
+      <div class="main-content">
+        <!-- 入力セクション -->
+        <div class="input-section">
+          <h2 class="section-title">気象・クルー情報入力</h2>
+
+          <!-- 風速 -->
+          <div class="form-group">
+            <label class="form-label" for="windSpeed">
+              風速（m/s）<span class="required">*</span>
+            </label>
+            <input 
+              type="number" 
+              id="windSpeed" 
+              class="form-input" 
+              :class="{ 'error': errors.windSpeed }"
+              v-model="windSpeed"
+              step="0.1"
+              min="0"
+              placeholder="例: 1.2"
+            >
+            <span v-if="errors.windSpeed" class="error-message">風速を入力してください</span>
+          </div>
+
+          <!-- 水温 -->
+          <div class="form-group">
+            <label class="form-label" for="waterTemp">
+              水温<span class="required">*</span>
+            </label>
+            <select 
+              id="waterTemp" 
+              class="form-select" 
+              :class="{ 'error': errors.waterTemp }"
+              v-model="waterTemp"
+            >
+              <option value="" disabled>選択してください</option>
+              <option v-for="option in waterTempOptions" :key="option" :value="option">
+                {{ option }}
+              </option>
+            </select>
+            <span v-if="errors.waterTemp" class="error-message">水温を選択してください</span>
+          </div>
+
+          <!-- 波 -->
+          <div class="form-group">
+            <label class="form-label" for="wave">
+              波の状態<span class="required">*</span>
+            </label>
+            <select 
+              id="wave" 
+              class="form-select" 
+              :class="{ 'error': errors.wave }"
+              v-model="wave"
+            >
+              <option value="" disabled>選択してください</option>
+              <option v-for="option in waveOptions" :key="option" :value="option">
+                {{ option }}
+              </option>
+            </select>
+            <span v-if="errors.wave" class="error-message">波の状態を選択してください</span>
+          </div>
+
+          <!-- 霧 -->
+          <div class="form-group">
+            <label class="form-label" for="fog">
+              霧の状態<span class="required">*</span>
+            </label>
+            <select 
+              id="fog" 
+              class="form-select" 
+              :class="{ 'error': errors.fog }"
+              v-model="fog"
+            >
+              <option value="" disabled>選択してください</option>
+              <option v-for="option in fogOptions" :key="option" :value="option">
+                {{ option }}
+              </option>
+            </select>
+            <span v-if="errors.fog" class="error-message">霧の状態を選択してください</span>
+          </div>
+
+          <!-- 雷 -->
+          <div class="form-group">
+            <label class="form-label" for="thunder">
+              雷の状態<span class="required">*</span>
+            </label>
+            <select 
+              id="thunder" 
+              class="form-select" 
+              :class="{ 'error': errors.thunder }"
+              v-model="thunder"
+            >
+              <option value="" disabled>選択してください</option>
+              <option v-for="option in thunderOptions" :key="option" :value="option">
+                {{ option }}
+              </option>
+            </select>
+            <span v-if="errors.thunder" class="error-message">天気の状態を選択してください</span>
+          </div>
+        </div>
+
+        <!-- 判定ボタン -->
+        <div class="button-container">
+          <button class="judge-button" @click="judgeBoating">
+            判定
+          </button>
+        </div>
+
+        <!-- 結果表示セクション -->
+         <div 
+           v-if="results" 
+           class="result-section show"
+         >
+           <h3 class="result-title">判定結果</h3>
+  
+           <div v-if="results.reason" class="result-reason" style="margin-bottom: 20px;">
+             理由: {{ results.reason }}
+           </div>
+
+           <div v-for="crew in results.crews" :key="crew.type" 
+                class="crew-result" 
+                :class="crew.status"
+                style="margin-bottom: 16px; padding: 16px; border-radius: 8px; border: 2px solid;">
+              <div style="font-weight: bold; font-size: 16px; margin-bottom: 8px;">
+                {{ crew.type }}
+              </div>
+              <div style="font-size: 18px; font-weight: bold;">
+                {{ crew.message }}
+              </div>
+            </div>
+          </div>
+
+  <!-- JavaScript読み込み -->
+  <script src="rowing.js"></script>
+
+</body>
+</html>
